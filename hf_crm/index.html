@@ -1,0 +1,116 @@
+<!doctype>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>金融信贷平台</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body class="gray-bg">
+		<div class="viewport">
+			<header>
+				<h1><s class="png-bg"></s></h1>
+				<i class="stealth back png-bg">返回</i>
+			</header>
+			<nav>
+				<a href="#" class="on">抵押贷</a>
+				<a href="#">信用贷</a>
+				<a href="#">金融贷</a>
+			</nav>
+			<div class="container">
+				<div class="search-con">
+					<label>贷款金额</label>
+					<input type="text" placeholder="请选择金额" class="srh-val" readonly />
+					<select>
+						<option>金额不限</option>
+						<option>1万到5万</option>
+						<option>5万到10万</option>
+						<option>10万到50万</option>
+						<option>50万到100万</option>
+						<option>100万到500万</option>
+						<option>500万以上</option>
+					</select>
+					<b class="png-bg"></b>
+					<input type="submit" value="" />
+				</div>
+				<div class="result-con">
+					<volist name="proList" id="list">
+			            {$list.name} {$list.oid|toName=Org} <br>
+			        </volist>
+					<a href="contact.html" class="row">
+						<span class="photo"><img src="img/123.png" /></span>
+						<div class="words">
+							<h3>房屋抵押经营贷(招商银行)</h3>
+							<p>住宅7成，商业6成皆可贷款，成功率高</p>
+						</div>
+					</a>
+					<a href="contact.html" class="row">
+						<span class="photo"><img src="img/456.png" /></span>
+						<div class="words">
+							<h3>个人助业贷款(农业银行)</h3>
+							<p>住宅7成，商业6成皆可贷款，成功率高</p>
+						</div>
+					</a>
+					<a href="contact.html" class="row">
+						<span class="photo"><img src="img/123.png" /></span>
+						<div class="words">
+							<h3>个人助业贷款(农业银行)</h3>
+							<p>住宅7成，商业6成皆可贷款，成功率高</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<footer class="reserve">
+				<a href="#">开始您的定制</a>
+			</footer>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js" ></script>
+<script>
+	/*统一点击颜色变化*/
+	function mouse_down(touch, hv){
+		$(touch).bind("touchstart" ,function(){
+			$(this).addClass("on");
+			if(hv){
+				$(this).prev().addClass("cur");
+			}
+		});
+		$(touch).bind("touchmove touchend" ,function(){
+			$(this).removeClass("on");
+			if(hv){
+				$(this).prev().removeClass("cur");
+			}
+		});
+		
+	};
+	choose_fun = {
+		choose: function(box,em,val){
+			$(val).on("touchend",function(){
+				$(this).val("");
+				$(box).show();
+				pointer(".level");
+			});
+			$(box).on("touchend",function(){
+				$(this).hide();
+				pointer(".result-con a");
+			});
+			$(em).on("touchend",function(){
+				$(val).val($(this).text());
+				$(box).hide();
+				pointer(".result-con a");
+			});
+			function pointer(box_p){
+				$(box_p).css("pointer-events","none");
+				setTimeout(function(){$(box_p).css("pointer-events","");},100);
+			}
+		}
+	}
+	$(function(){
+		mouse_down(".level .terms-box em", "hv");
+		choose_fun.choose(".level", ".level .terms-box em", ".search-con .srh-val");
+	});
+</script>

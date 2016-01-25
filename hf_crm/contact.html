@@ -1,0 +1,90 @@
+<!doctype>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>金融信贷平台</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div class="viewport">
+			<header>
+				<h1>联系方式</h1>
+				<i class="stealth back png-bg">返回</i>
+			</header>
+			<nav>
+				<a href="#" class="on">抵押贷</a>
+				<a href="#">信用贷</a>
+				<a href="#">金融贷</a>
+			</nav>
+			<div class="container contact">
+				<div class="form-con login">
+					<form>
+						<p class="form-row">
+							<label>姓名</label>
+							<input class="name" name="name" type="text" placeholder="请输入姓名" />
+							<b class="ub png-bg"></b>
+						</p>
+						<p class="form-row">
+							<label>手机号</label>
+							<input class="phone" name="phone" type="tel" placeholder="请输入手机号码" maxlength="11" />
+							<b class="cb png-bg"></b>
+						</p>
+						<p class="form-btn">
+							<input type="submit" value="下一步" />
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js" ></script>
+<script>
+	err_fun = {
+		show_err: function(name, phone){
+			var err_html = '<div class="mobile_err cover-fix"><div class="level-err"><div class="ico_cir"><span class="cir-in"></span><em class="cir-out"></em></div><p class="err-txt"></p></div></div>';
+			$("body").append(err_html);
+			var err_box = $(".mobile_err");
+    		var err_txt = $(".mobile_err .err-txt");
+    		var regpnum = /^0?1[3|4|5|8][0-9]\d{8}$/;
+    		$("form").submit(function(e) {
+	            if($(name).val()==""){
+	                err_txt.text("请输入姓名");
+	                tip_err();
+	                return false;
+	            }
+	            if($(phone).val()==""){
+	                err_txt.text("请输入手机号码");
+	                tip_err();
+	                return false;
+	            }
+	            if($(phone).val().length!=11){
+	                err_txt.text("手机号码长度不正确");
+	                tip_err();
+	                $(phone).val("");
+	                $(phone).focus();
+	                return false;
+	            }
+	            if(!regpnum.test($(phone).val())){
+	                err_txt.text("手机号码格式不正确");
+	                tip_err();
+	                $(phone).val("");
+	                $(phone).focus();
+	                return false;
+	            }
+	            
+	        });
+    		function tip_err(){
+	            err_box.show();
+	            setTimeout(function(){err_box.fadeOut();},800);
+	        }
+		}
+	}
+    $(function() {
+    	err_fun.show_err(".name", ".phone");
+    });
+</script>
